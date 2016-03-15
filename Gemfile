@@ -44,5 +44,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+#rspec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
+
 
 gem 'rails_12factor', group: :production
