@@ -1,5 +1,5 @@
 class GramsController < ApplicationController
-	before_action :authenticate_user!, only:[:new, :create]
+	before_action :authenticate_user!, only:[:new, :create, :edit, :update, :destroy]
 
 	def index
 	end
@@ -10,7 +10,9 @@ class GramsController < ApplicationController
 	end
 
 	def edit
-		@gram = Gram.find_by_id(params[:id])
+
+		# ADD CURRENT_USER != @GRAM.USER HERE ----------------------------------------------------------------------
+		@gram = Gram.find_by_id(params[:id]) 
 		return render_not_found if @gram.blank?
 	end
 
