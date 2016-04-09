@@ -4,6 +4,14 @@ RSpec.describe GramsController, type: :controller do
 
 	describe "grams#destroy action" do
 
+		it "shouldn't allow users who didn't create the gram to destroy it" do
+			p = FactoryGirl.create(:gram)
+			u = FactoryGirl.create(:user)
+			sign_in u
+			delete :destroy, id: p.id
+			expect(response).to have_http_status(:forbidden)
+		end
+
 		it "should not let unauthenticated users destroy a gram" do
 			p = FactoryGirl.create(:gram)
 			delete :destroy, id: p.id
@@ -30,6 +38,14 @@ RSpec.describe GramsController, type: :controller do
 	
 
 	describe "grams#update action" do
+		it "shouldn't let users who didn't create the gram update it" do
+			p = FactoryGirl.create(:gram)
+			user = FactoryGirl.create(:user)
+			sign_in user
+			patch :update, id: p.id, gram: {message: 'wahoo'}
+			expect(response).to have_http_status(:forbidden)
+		end
+
 		it "should not let unauthenticated users update a gram" do
 			p = FactoryGirl.create(:gram)
 			patch :update, id: p.id, gram: {message: "Hello"}
