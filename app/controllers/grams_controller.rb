@@ -2,6 +2,7 @@ class GramsController < ApplicationController
   before_action :authenticate_user!, only:[:new, :create, :edit, :update, :destroy]
 
   def index
+    @gram = Gram.all
   end
 
   def show
@@ -60,7 +61,7 @@ class GramsController < ApplicationController
 
 
   def gram_params
-    params.require(:gram).permit(:message)
+    params.require(:gram).permit(:message, :picture)
   end
 
   
